@@ -1,0 +1,57 @@
+{
+  "name": "@petai/computer-agent-shared",
+  "version": "1.0.0",
+  "description": "Shared TypeScript contracts for the Computer Agent ecosystem — types, Zod schemas, WebSocket events, actions, and API DTOs",
+  "type": "module",
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
+  "scripts": {
+    "build": "tsup",
+    "clean": "rm -rf dist",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "prepublishOnly": "npm run typecheck && npm run test && npm run build"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "computer-agent",
+    "protocol",
+    "websocket",
+    "zod",
+    "typescript"
+  ],
+  "license": "MIT",
+  "peerDependencies": {
+    "zod": "^3.23.0"
+  },
+  "dependencies": {
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "tsup": "^8.3.5",
+    "typescript": "^5.7.3",
+    "vitest": "^2.1.8"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/petai/computer-agent-shared.git"
+  },
+  "publishConfig": {
+    "access": "restricted"
+  }
+}
