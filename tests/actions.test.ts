@@ -17,6 +17,7 @@ describe("ActionTypeSchema", () => {
       "TYPE_TEXT",
       "KEY_PRESS",
       "HOTKEY",
+      "SCROLL",
       "OPEN_APP",
       "WAIT",
       "SCREENSHOT",
@@ -26,7 +27,7 @@ describe("ActionTypeSchema", () => {
   });
 
   it("rejects unknown action types", () => {
-    expect(ActionTypeSchema.safeParse("SCROLL").success).toBe(false);
+    expect(ActionTypeSchema.safeParse("DRAG").success).toBe(false);
     expect(ActionTypeSchema.safeParse("TYPE").success).toBe(false);
   });
 });
@@ -43,6 +44,17 @@ describe("ComputerActionSchema", () => {
     });
   });
 
+  it("parses SCROLL", () => {
+    const result = ComputerActionSchema.parse({
+      type: "SCROLL",
+      params: { direction: "down", amount: 10 },
+    });
+    expect(result).toEqual({
+      type: "SCROLL",
+      params: { direction: "down", amount: 10 },
+    });
+  });
+
   it("parses each action variant", () => {
     const samples = [
       { type: "DOUBLE_CLICK", params: { x: 1, y: 2, button: "RIGHT" } },
@@ -50,6 +62,7 @@ describe("ComputerActionSchema", () => {
       { type: "TYPE_TEXT", params: { text: "hello" } },
       { type: "KEY_PRESS", params: { key: "Enter" } },
       { type: "HOTKEY", params: { keys: ["Meta", "c"] } },
+      { type: "SCROLL", params: { direction: "up", amount: 3 } },
       { type: "OPEN_APP", params: { app: "Safari" } },
       { type: "WAIT", params: { ms: 500 } },
       { type: "SCREENSHOT", params: { reason: "check UI" } },

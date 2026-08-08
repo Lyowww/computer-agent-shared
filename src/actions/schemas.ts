@@ -9,6 +9,7 @@ import {
   MoveMouseParamsSchema,
   OpenAppParamsSchema,
   ScreenshotParamsSchema,
+  ScrollParamsSchema,
   TypeTextParamsSchema,
   WaitParamsSchema,
 } from "./params.js";
@@ -23,6 +24,7 @@ export const ActionTypeSchema = z.enum([
   "TYPE_TEXT",
   "KEY_PRESS",
   "HOTKEY",
+  "SCROLL",
   "OPEN_APP",
   "WAIT",
   "SCREENSHOT",
@@ -45,6 +47,7 @@ export const ComputerActionSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("TYPE_TEXT"), params: TypeTextParamsSchema }),
   z.object({ type: z.literal("KEY_PRESS"), params: KeyPressParamsSchema }),
   z.object({ type: z.literal("HOTKEY"), params: HotkeyParamsSchema }),
+  z.object({ type: z.literal("SCROLL"), params: ScrollParamsSchema }),
   z.object({ type: z.literal("OPEN_APP"), params: OpenAppParamsSchema }),
   z.object({ type: z.literal("WAIT"), params: WaitParamsSchema }),
   z.object({ type: z.literal("SCREENSHOT"), params: ScreenshotParamsSchema }),

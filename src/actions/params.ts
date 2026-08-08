@@ -8,6 +8,9 @@ export const ClickParamsSchema = z.object({
   x: z.number().finite(),
   y: z.number().finite(),
   button: MouseButtonSchema.default("LEFT"),
+  targetLabel: z.string().min(1).max(128).optional(),
+  targetConfidence: z.number().min(0).max(1).optional(),
+  targetSource: z.string().min(1).max(64).optional(),
 });
 export type ClickParams = z.infer<typeof ClickParamsSchema>;
 
@@ -15,14 +18,29 @@ export const DoubleClickParamsSchema = z.object({
   x: z.number().finite(),
   y: z.number().finite(),
   button: MouseButtonSchema.default("LEFT"),
+  targetLabel: z.string().min(1).max(128).optional(),
+  targetConfidence: z.number().min(0).max(1).optional(),
+  targetSource: z.string().min(1).max(64).optional(),
 });
 export type DoubleClickParams = z.infer<typeof DoubleClickParamsSchema>;
 
 export const MoveMouseParamsSchema = z.object({
   x: z.number().finite(),
   y: z.number().finite(),
+  targetLabel: z.string().min(1).max(128).optional(),
 });
 export type MoveMouseParams = z.infer<typeof MoveMouseParamsSchema>;
+
+export const ScrollDirectionSchema = z.enum(["up", "down", "left", "right"]);
+export type ScrollDirection = z.infer<typeof ScrollDirectionSchema>;
+
+export const ScrollParamsSchema = z.object({
+  direction: ScrollDirectionSchema.default("down"),
+  amount: z.number().finite().positive().max(100).optional().default(5),
+  x: z.number().finite().optional(),
+  y: z.number().finite().optional(),
+});
+export type ScrollParams = z.infer<typeof ScrollParamsSchema>;
 
 export const TypeTextParamsSchema = z.object({
   text: z.string().min(1).max(10_000),
